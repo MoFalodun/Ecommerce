@@ -1,7 +1,7 @@
 const { validateProduct, checkIfProductExists, checkOwner, validateUpdateProduct, checkOwnerForRatings } = require("./product");
 const { authenticate } = require("./auth");
 const { validateSignup, validateLogin, checkIfUserExists, } = require("./user");
-const { validateRating } = require('./rating')
+const { validateRating, checkIfPrevRated } = require('./rating')
 module.exports = {
   validateProduct,
   checkIfProductExists,
@@ -13,4 +13,5 @@ module.exports = {
   validateUpdateProduct,
   checkOwnerForRatings,
   validateRating,
+  checkIfPrevRated,
 };

@@ -27,7 +27,7 @@ const fetchProductWithRatings = async (productId) => {
         averageRating += parseInt(ratings[i].rating);
     }
     averageRating = averageRating / ratings.length
-    console.log(ratings)
+    // console.log(ratings)
     product.averageRating = averageRating;
     return product;
 }

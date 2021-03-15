@@ -15,7 +15,7 @@ const {
   updateUserDetails,
 } = require("./user");
 
-const { addRating, fetchAllRatings, fetchAverageRatings, fetchProductRatings } = require("./rating");
+const { addRating, fetchAllRatings, fetchAverageRatings, fetchProductRatings, fetchRatingsByUser } = require("./rating");
 
 module.exports = {
   addProduct,
@@ -33,4 +33,5 @@ module.exports = {
   fetchProductRatings,
   fetchProductWithRatings,
   fetchAvgProductRating,
+  fetchRatingsByUser,
 };

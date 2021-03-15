@@ -9,6 +9,7 @@ const productSchema = Joi.object({
 });
 
 const updateProductSchema = Joi.object({
+  title: Joi.string().min(3).max(70).required(),
   description: Joi.string().min(10).max(200).required(),
   price: Joi.number().integer().positive().required(),
   size: Joi.number().integer().positive().required(),

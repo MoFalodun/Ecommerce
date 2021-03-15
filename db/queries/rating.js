@@ -1,7 +1,7 @@
 module.exports = {
   createRatingsTable: `CREATE table IF NOT EXISTS ratings (
     id UUID PRIMARY KEY,
-    rating NUMERIC NOT NULL,
+    rating NUMERIC(1,2) NOT NULL,
     user_id uuid REFERENCES user_info NOT NULL,
     product_id uuid REFERENCES products NOT NULL,
     created_at TIMESTAMPTZ default now(),
@@ -13,7 +13,9 @@ module.exports = {
         VALUES ($1, $2, $3, $4)
         RETURNING *;`,
 
-  fetchRatingsByUser: "SELECT * FROM ratings WHERE id = $1",
+  // fetchRatingsByUser: "SELECT * FROM ratings WHERE id = $1",
+
+  fetchUserRatings: "SELECT * FROM ratings WHERE user_id = $1 AND product_id = $2",
 
   fetchRatingsByProduct: "SELECT * FROM ratings WHERE product_id = $1",
   

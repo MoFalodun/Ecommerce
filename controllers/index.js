@@ -1,4 +1,5 @@
-const { addNewProduct, fetchSingleProduct, fetchAllProductsAvailable, updateExistingProduct } = require('./product');
+const { addNewProduct, fetchSingleProduct, fetchProductRatings, fetchAllProductsAvailable, updateExistingProduct } = require('./product');
 const { addNewUser, loginUser } = require('./user');
+const { addNewRating } = require('./rating');
 
-module.exports = { addNewProduct, fetchSingleProduct, fetchAllProductsAvailable, updateExistingProduct,  addNewUser, loginUser };
+module.exports = { addNewProduct, fetchProductRatings, addNewRating, fetchSingleProduct, fetchAllProductsAvailable, updateExistingProduct,  addNewUser, loginUser };

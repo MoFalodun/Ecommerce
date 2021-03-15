@@ -1,4 +1,4 @@
-const { addProduct, fetchAllProducts, updateProduct } = require('../services');
+const { addProduct, fetchAllProducts, updateProduct, fetchProductWithRatings } = require('../services');
 
 const addNewProduct = async (req, res) => {
     try {
@@ -22,6 +22,20 @@ const fetchSingleProduct = async (req, res) => {
     res.status(500).json({ status: 'fail', message: 'Something went wrong.' });
   }
 };
+
+const fetchProductRatings = async (req, res) => {
+  try {
+    const product = await fetchProductWithRatings(req.params.productId)
+    res
+      .status(200)
+      .json({ status: 'success', message: 'Product fetched ', data: product });
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ status: 'fail', message: 'Something went wrong.' });
+  }
+};
+
+
 
 const fetchAllProductsAvailable = async (req, res) => {
   try {
@@ -48,4 +62,5 @@ const updateExistingProduct = async (req, res) => {
 };
 
 
-module.exports = { addNewProduct, fetchSingleProduct, fetchAllProductsAvailable, updateExistingProduct };
+
+module.exports = { addNewProduct, fetchSingleProduct, fetchProductRatings, fetchAllProductsAvailable, updateExistingProduct };

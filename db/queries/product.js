@@ -3,16 +3,16 @@ module.exports = {
           id UUID PRIMARY KEY,
           title varchar(70) NOT NULL,
           description varchar(200) NOT NULL,
-          user_id uuid REFERENCES user_info NOT NULL,
           price INT NOT NULL,
           size INT NOT NULL,
           color varchar(40) NOT NULL,
+          user_id uuid REFERENCES user_info NOT NULL,
           created_at TIMESTAMPTZ default now(),
           updated_at TIMESTAMPTZ default now()
       );`,
 
   insertProduct: `INSERT INTO products
-          ( id, title, description, user_id, price, size, color )
+          ( id, title, description, price, size, color, user_id )
       VALUES ($1, $2, $3, $4, $5, $6, $7)
       RETURNING *;`,
 

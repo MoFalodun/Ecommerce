@@ -1,8 +1,10 @@
-const { addProduct, fetchAllProducts, updateProduct } = require('../services');
+const { addProduct, fetchAllProducts, updateProduct, fetchProductWithRatings, fetchSingleProduct, fetchAvgProductRating} = require('../services');
 
 const addNewProduct = async (req, res) => {
     try {
-      const newProduct = await addProduct(req.body);
+      const userID = req.user.id;
+      const newProduct = await addProduct({ ...req.body, userId: userID});
+      console.log(req.user)
       res
         .status(201)
         .json({ status: 'success', message: 'Product added successfully.', data: newProduct });
@@ -12,7 +14,7 @@ const addNewProduct = async (req, res) => {
   }
 };
 
-const fetchSingleProduct = async (req, res) => {
+const fetchSingleProductbyID = async (req, res) => {
   try {
     res
       .status(200)
@@ -37,10 +39,49 @@ const fetchAllProductsAvailable = async (req, res) => {
 
 const updateExistingProduct = async (req, res) => {
   try {
-    const updatedProduct = await updateProduct(req.body);
+    const updatedProduct = await updateProduct(req.body, req.params.productId);
     res
       .status(201)
-      .json({ status: 'success', message: 'Product updated successfully.', data: newProduct });
+      .json({ status: 'success', message: 'Product updated successfully.', data: updatedProduct });
+} catch (error) {
+    console.log(error)
+  res.status(500).json({ status: 'fail', message: 'Something went wrong.' });
+}
+};
+
+const fetchProductRatings = async (req, res) => {
+  try {
+    const product = await fetchProductWithRatings(req.params.productId)
+    res
+      .status(200)
+      .json({ status: 'success', message: 'Product fetched ', data: product });
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ status: 'fail', message: 'Something went wrong.' });
+  }
+};
+
+const fetchProductAvgRatings = async (req, res) => {
+  try {
+    const product = await fetchSingleProduct(req.params.productId)
+    const rate = await fetchAvgProductRating(req.params.productId)
+    res
+      .status(200)
+      .json({ status: 'success', message: 'Rating fetched ', data: {...product, rate} });
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ status: 'fail', message: 'Something went wrong.' });
+  }
+}
+
+// ignore this
+const updateProductWithRatings = async (req, res) => {
+  try {
+    const rate = await fetchAvgProductRating(req.params.productId);
+    const updatedProduct = await updateProduct(req.params, rate.value);
+    res
+      .status(201)
+      .json({ status: 'success', message: 'Product updated successfully.', data: updatedProduct });
 } catch (error) {
     console.log(error)
   res.status(500).json({ status: 'fail', message: 'Something went wrong.' });
@@ -48,4 +89,4 @@ const updateExistingProduct = async (req, res) => {
 };
 
 
-module.exports = { addNewProduct, fetchSingleProduct, fetchAllProductsAvailable, updateExistingProduct };
+module.exports = { addNewProduct, fetchSingleProductbyID, fetchAllProductsAvailable, updateExistingProduct, fetchProductAvgRatings, fetchProductRatings, updateProductWithRatings };

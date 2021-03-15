@@ -8,4 +8,11 @@ const productSchema = Joi.object({
   color: Joi.string().min(3).max(40).required(),
 });
 
-module.exports = productSchema;
+const updateProductSchema = Joi.object({
+  description: Joi.string().min(10).max(200).required(),
+  price: Joi.number().integer().positive().required(),
+  size: Joi.number().integer().positive().required(),
+  color: Joi.string().min(3).max(40).required(),
+});
+
+module.exports = { productSchema, updateProductSchema};

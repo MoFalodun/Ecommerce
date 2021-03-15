@@ -3,9 +3,19 @@ const {
   fetchSingleProduct,
   fetchAllProducts,
   updateProduct,
+  fetchProductWithRatings,
+  fetchAvgProductRating
 } = require("./product");
 
-const { addUser, getUserByUsername, getUserById, getUserByEmail, updateUserDetails, } = require("./user");
+const {
+  addUser,
+  getUserByUsername,
+  getUserById,
+  getUserByEmail,
+  updateUserDetails,
+} = require("./user");
+
+const { addRating, fetchAllRatings, fetchAverageRatings, fetchProductRatings } = require("./rating");
 
 module.exports = {
   addProduct,
@@ -17,4 +27,10 @@ module.exports = {
   getUserById,
   getUserByEmail,
   updateUserDetails,
+  addRating,
+  fetchAllRatings,
+  fetchAverageRatings,
+  fetchProductRatings,
+  fetchProductWithRatings,
+  fetchAvgProductRating,
 };

@@ -1,10 +1,13 @@
 const { Router } = require('express');
-const { addNewProduct, fetchSingleProduct, fetchAllProductsAvailable } = require('../controllers');
-const { validateProduct, checkIfProductExists } = require('../middlewares');
+const { addNewProduct, fetchSingleProductbyID, fetchAllProductsAvailable, updateExistingProduct, fetchProductAvgRatings, fetchProductRatings, } = require('../controllers');
+const { validateProduct, checkIfProductExists, authenticate, checkOwner, validateUpdateProduct } = require('../middlewares');
 
 const productRouter = Router();
 
-productRouter.post('/product', validateProduct, addNewProduct);
-productRouter.get('/product/:productId',checkIfProductExists, fetchSingleProduct);
+productRouter.post('/product', authenticate, validateProduct, addNewProduct);
+productRouter.get('/product/:productId',checkIfProductExists, fetchSingleProductbyID);
 productRouter.get('/products', fetchAllProductsAvailable)
+productRouter.put('/product/:productId', authenticate, checkOwner, validateUpdateProduct, updateExistingProduct);
+productRouter.get('/products-ratings/:productId', fetchProductRatings )
+productRouter.get('/productratings/:productId', fetchProductAvgRatings )
 module.exports = { productRouter, };

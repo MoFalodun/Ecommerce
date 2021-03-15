@@ -1,11 +1,13 @@
 const db = require('../db/setup');
-const { insertProduct, fetchProductById, fetchProducts, updateProductById } = require('../db/queries/product');
+const { insertProduct, fetchProductById, fetchProducts, updateProductById,} = require('../db/queries/product');
+const { fetchAvgRating } = require('../db/queries/rating')
+const { fetchProductRatings} = require('./rating');
 const { generateUUID } = require('../utils');
 
 const addProduct = async (data) => {
     const id = generateUUID;
-    const { title, description, userId, price, size, color} = data;
-    return db.one(insertProduct, [id, title, description, userId, price, size, color]);
+    const { title, description, price, size, color, userId } = data;
+    return db.one(insertProduct, [id, title, description, price, size, color, userId]);
 };
 
 const fetchSingleProduct = async (productId) => db.oneOrNone(fetchProductById, [productId])
@@ -17,10 +19,27 @@ const updateProduct = async (data, productId) => {
     return db.one(updateProductById, [description, price, size, color, productId])
 }
 
+const fetchProductWithRatings = async (productId) => {
+    let averageRating = 0;
+    const ratings = await fetchProductRatings(productId)
+    const product = await fetchSingleProduct(productId)
+    for (let i = 0; i < ratings.length; i++) {
+        averageRating += parseInt(ratings[i].rating);
+    }
+    averageRating = averageRating / ratings.length
+    console.log(ratings)
+    product.averageRating = averageRating;
+    return product;
+}
+
+const fetchAvgProductRating = async (productId) => db.oneOrNone(fetchAvgRating, [productId])
+
 module.exports = {
     addProduct,
     fetchSingleProduct,
     fetchAllProducts,
     updateProduct,
+    fetchProductWithRatings,
+    fetchAvgProductRating
   };
   

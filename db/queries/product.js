@@ -7,13 +7,14 @@ module.exports = {
           size INT NOT NULL,
           color varchar(40) NOT NULL,
           user_id uuid REFERENCES user_info NOT NULL,
+          user_name varchar NOT NULL,
           created_at TIMESTAMPTZ default now(),
           updated_at TIMESTAMPTZ default now()
       );`,
 
   insertProduct: `INSERT INTO products
-          ( id, title, description, price, size, color, user_id )
-      VALUES ($1, $2, $3, $4, $5, $6, $7)
+          ( id, title, description, price, size, color, user_id, user_name )
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
       RETURNING *;`,
 
   fetchProductById: "SELECT * FROM products WHERE id = $1",

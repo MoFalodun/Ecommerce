@@ -6,8 +6,8 @@ const { generateUUID } = require('../utils');
 
 const addProduct = async (data) => {
     const id = generateUUID;
-    const { title, description, price, size, color, userId } = data;
-    return db.one(insertProduct, [id, title, description, price, size, color, userId]);
+    const { title, description, price, size, color, userId, userName } = data;
+    return db.one(insertProduct, [id, title, description, price, size, color, userId, userName]);
 };
 
 const fetchSingleProduct = async (productId) => db.oneOrNone(fetchProductById, [productId])

@@ -26,7 +26,7 @@ const loginUser = async (req, res) => {
       const token = addDataToToken({
         email,
         id: user.id,
-        username: user.userName,
+        userName,
       });
       return res
         .status(200)

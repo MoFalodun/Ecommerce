@@ -1,7 +1,7 @@
 module.exports = {
   createRatingsTable: `CREATE table IF NOT EXISTS ratings (
     id UUID PRIMARY KEY,
-    rating NUMERIC(1,2) NOT NULL,
+    rating NUMERIC NOT NULL,
     user_id uuid REFERENCES user_info NOT NULL,
     product_id uuid REFERENCES products NOT NULL,
     created_at TIMESTAMPTZ default now(),

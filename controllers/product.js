@@ -3,7 +3,8 @@ const { addProduct, fetchAllProducts, updateProduct, fetchProductWithRatings, fe
 const addNewProduct = async (req, res) => {
     try {
       const userID = req.user.id;
-      const newProduct = await addProduct({ ...req.body, userId: userID});
+      const username = req.user.userName
+      const newProduct = await addProduct({ ...req.body, userId: userID, userName: username});
       res
         .status(201)
         .json({ status: 'success', message: 'Product added successfully.', data: newProduct });

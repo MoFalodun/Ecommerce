@@ -1,5 +1,5 @@
 const { productSchema, updateProductSchema } = require('../validation');
-const { fetchSingleProduct, fetchAvgProductRating } = require('../services');
+const { fetchSingleProduct } = require('../services');
 
 const validateProduct = (req, res, next) => {
     try {
@@ -53,7 +53,6 @@ const checkOwnerForRatings = async (req, res, next) => {
     return res.status(500).json({ status: 'fail', message: 'Something went wrong.' });
   }
 };
-
 const validateUpdateProduct = (req, res, next) => {
   try {
     const { error } = updateProductSchema.validate(req.body);

@@ -22,14 +22,14 @@ module.exports = {
   fetchProducts: "SELECT * FROM products",
 
   updateProductById: `UPDATE products
-    SET 
-      description = $1,
-      price = $2,
-      size = $3,
-      color = $4,
-      updated_at = NOW()
-    WHERE id = $5
-    RETURNING *;`,
+  SET 
+    description = $1,
+    price = $2,
+    size = $3,
+    color = $4,
+    updated_at = NOW()
+  WHERE id = $5
+  RETURNING *;`,
 
   deleteProductByID: "DELETE FROM products WHERE id = $1"
 };

@@ -1,8 +1,10 @@
 const express = require('express');
 const logger = require('morgan');
+require('dotenv').config();
 const { productRouter, userRouter, ratingRouter } = require('./routes');
 
 const app = express();
+const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
 app.use(logger('dev'));
@@ -12,6 +14,6 @@ app.use(productRouter);
 app.use(userRouter);
 app.use(ratingRouter)
 
-app.listen(8080, () => {
-  console.log(`Example app listening at http://localhost:${8080}`);
+app.listen(PORT, () => {
+  console.log(`Example app listening at http://localhost:${PORT}`);
 });

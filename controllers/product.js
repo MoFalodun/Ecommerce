@@ -1,10 +1,9 @@
-const { addProduct, fetchAllProducts, updateProduct, fetchProductWithRatings, fetchSingleProduct, fetchAvgProductRating} = require('../services');
+const { addProduct, fetchAllProducts, updateProduct, fetchProductWithRatings, fetchSingleProduct, fetchAvgProductRating, deleteSingleProduct } = require('../services');
 
 const addNewProduct = async (req, res) => {
     try {
       const userID = req.user.id;
       const newProduct = await addProduct({ ...req.body, userId: userID});
-      console.log(req.user)
       res
         .status(201)
         .json({ status: 'success', message: 'Product added successfully.', data: newProduct });
@@ -31,6 +30,19 @@ const fetchAllProductsAvailable = async (req, res) => {
     res
       .status(200)
       .json({ status: 'success', message: 'All products fetched successfully', data: allProducts })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ status: 'fail', message: 'Something went wrong.' });
+  }
+};
+
+
+const deleteSingleProductbyID = async (req, res) => {
+  try {
+    const singleProduct = await deleteSingleProduct (req.params.productId)
+    res
+      .status(200)
+      .json({ status: 'success', message: 'Product deleted ' });
   } catch (error) {
     console.log(error)
     res.status(500).json({ status: 'fail', message: 'Something went wrong.' });
@@ -74,7 +86,6 @@ const fetchProductAvgRatings = async (req, res) => {
   }
 }
 
-// ignore this
 const updateProductWithRatings = async (req, res) => {
   try {
     const rate = await fetchAvgProductRating(req.params.productId);
@@ -89,4 +100,4 @@ const updateProductWithRatings = async (req, res) => {
 };
 
 
-module.exports = { addNewProduct, fetchSingleProductbyID, fetchAllProductsAvailable, updateExistingProduct, fetchProductAvgRatings, fetchProductRatings, updateProductWithRatings };
+module.exports = { addNewProduct, fetchSingleProductbyID, fetchAllProductsAvailable, updateExistingProduct, fetchProductAvgRatings, fetchProductRatings, updateProductWithRatings, deleteSingleProductbyID };

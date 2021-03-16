@@ -1,5 +1,5 @@
 const db = require('../db/setup');
-const { insertProduct, fetchProductById, fetchProducts, updateProductById,} = require('../db/queries/product');
+const { insertProduct, fetchProductById, fetchProducts, updateProductById, deleteProductByID } = require('../db/queries/product');
 const { fetchAvgRating } = require('../db/queries/rating')
 const { fetchProductRatings} = require('./rating');
 const { generateUUID } = require('../utils');
@@ -18,6 +18,8 @@ const updateProduct = async (data, productId) => {
     const {description, price, size, color } = data;
     return db.one(updateProductById, [description, price, size, color, productId])
 }
+
+const deleteSingleProduct = async (productId) => db.oneOrNone(deleteProductByID, [productId])
 
 const fetchProductWithRatings = async (productId) => {
     let averageRating = 0;
@@ -40,6 +42,7 @@ module.exports = {
     fetchAllProducts,
     updateProduct,
     fetchProductWithRatings,
-    fetchAvgProductRating
+    fetchAvgProductRating,
+    deleteSingleProduct
   };
   

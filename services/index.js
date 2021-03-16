@@ -4,7 +4,8 @@ const {
   fetchAllProducts,
   updateProduct,
   fetchProductWithRatings,
-  fetchAvgProductRating
+  fetchAvgProductRating,
+  deleteSingleProduct
 } = require("./product");
 
 const {
@@ -34,4 +35,5 @@ module.exports = {
   fetchProductWithRatings,
   fetchAvgProductRating,
   fetchRatingsByUser,
+  deleteSingleProduct,
 };

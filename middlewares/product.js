@@ -60,6 +60,7 @@ const validateUpdateProduct = (req, res, next) => {
     if (!error) {
         return next();
     }
+    console.log(error.message)
     return res.status(400).json({ status: 'fail', message: error.message });
   } catch (error) {
     console.log(error)

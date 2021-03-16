@@ -19,14 +19,14 @@ const addNewUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, userName } = req.body;
     const user = await getUserByEmail(email);
     if (user && comparePassword(password, user.password)) {
       delete user.password;
       const token = addDataToToken({
         email,
         id: user.id,
-        username: user.username,
+        username: user.userName,
       });
       return res
         .status(200)

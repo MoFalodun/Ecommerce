@@ -11,6 +11,7 @@ const signupSchema = Joi.object({
 const loginSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().min(7).required(),
+  userName: Joi.string().min(4).max(20).required()
 });
 
 module.exports = {

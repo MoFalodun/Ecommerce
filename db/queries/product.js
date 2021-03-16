@@ -29,4 +29,6 @@ module.exports = {
       updated_at = NOW()
     WHERE id = $5
     RETURNING *;`,
+
+  deleteProductByID: "DELETE FROM products WHERE id = $1"
 };
